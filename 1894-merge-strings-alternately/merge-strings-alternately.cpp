@@ -7,10 +7,12 @@ public:
         
         while (i < n1 || j < n2) {
             if (i < n1) {
-                result += word1[i++];
+                result += word1[i];
+                i++;
             }
             if (j < n2) {
-                result += word2[j++];
+                result += word2[j];
+                j++;
             }
         }
         
