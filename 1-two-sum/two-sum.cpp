@@ -1,23 +1,23 @@
 class Solution {
 public:
+    // Function takes the array 'nums' and the 'target' sum, returns indices of the pair
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<pair<int,int>> arr; // (value, original index)
-        for (int i = 0; i < nums.size(); i++)
-            arr.push_back({nums[i], i}); // Making Pair of (Elment,Index)
+        
+        unordered_map<int, int> seen; // Hashmap to store {number : its index} as we iterate
 
-        sort(arr.begin(), arr.end());
+        // Loop through the array exactly once, index i from 0 to nums.size()-1
+        for (int i = 0; i < nums.size(); i++) {
 
-        int first = 0, last = arr.size() - 1;
-        while (first < last) {
-            int sum = arr[first].first + arr[last].first; // .first Gives Elment 
-            if (sum == target) {
-                return {arr[first].second, arr[last].second}; //. Second GiVes iNDEX 
-            } else if (sum < target) {
-                first++;
-            } else {
-                last--;
+            int complement = target - nums[i]; // The number needed to pair with nums[i] to reach target
+
+            // Check if complement already exists as a key in the hashmap
+            if (seen.find(complement) != seen.end()) {
+                return {seen[complement], i}; // Found it! Return earlier index + current index
             }
+
+            seen[nums[i]] = i; // No match yet, so store current number and its index for future checks
         }
-        return {}; // no solution found
+
+        return {}; // Fallback return (won't actually trigger, since problem guarantees one solution)
     }
 };
